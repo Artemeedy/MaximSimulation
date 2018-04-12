@@ -1,0 +1,185 @@
+﻿<Window x:Class="MaximExample.State"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaximExample"
+        mc:Ignorable="d"
+        Title="MaximSimulator" Height="768" Width="1024" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <SolidColorBrush x:Key="ListBox.Static.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="ListBox.Static.Border" Color="#FFABADB3"/>
+        <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="#FFD9D9D9"/>
+        <Style TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
+                            <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+                                <ItemsPresenter x:Name="_chat" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" IsEnabled="False"/>
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsGrouping" Value="true"/>
+                                    <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#1F26A0DA"/>
+        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Padding" Value="4,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid HorizontalAlignment="Left" Height="114" VerticalAlignment="Top" Width="1018">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFCFF4FF" Offset="0.653"/>
+                    <GradientStop Color="#FFCFF4FF" Offset="0.363"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Image HorizontalAlignment="Left" Height="104" Margin="10,10,0,0" VerticalAlignment="Top" Width="81" Source="Resources/dgWOLkTt6xs_1_00000.png" Stretch="UniformToFill" RenderTransformOrigin="0.515,0.551"/>
+            <Label Content="Максим Якунин, 18 лет, адекватен" HorizontalAlignment="Left" Margin="96,14,0,0" VerticalAlignment="Top" FontSize="18" Height="48" Width="879" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <Image HorizontalAlignment="Left" Height="35" Margin="549,13,0,0" VerticalAlignment="Top" Width="35" Source="Resources/ekg-icon-65958.png" Stretch="UniformToFill"/>
+            <ProgressBar x:Name="hp_bar" HorizontalAlignment="Left" Height="15" Margin="589,32,0,0" VerticalAlignment="Top" Width="100" Value="100" Background="{x:Null}" BorderBrush="#FF4D4D4D">
+                <ProgressBar.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9C0000" Offset="1"/>
+                        <GradientStop Color="#FFFF6D6D"/>
+                    </LinearGradientBrush>
+                </ProgressBar.Foreground>
+            </ProgressBar>
+            <Image HorizontalAlignment="Left" Height="35" Margin="709,13,0,0" VerticalAlignment="Top" Width="35" Source="Resources/alcohol_bottle_christmas_drink_mulled_wine_icon_358213.png" Stretch="UniformToFill"/>
+            <ProgressBar x:Name="alc_bar" HorizontalAlignment="Left" Height="15" Margin="749,32,0,0" VerticalAlignment="Top" Width="100" Value="100" Background="{x:Null}" BorderBrush="#FF4D4D4D">
+                <ProgressBar.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9C7100" Offset="1"/>
+                        <GradientStop Color="#FFFFD76D"/>
+                    </LinearGradientBrush>
+                </ProgressBar.Foreground>
+            </ProgressBar>
+            <Image HorizontalAlignment="Left" Height="35" Margin="868,13,0,0" VerticalAlignment="Top" Width="35" Source="Resources/unnamed.png" Stretch="UniformToFill"/>
+            <ProgressBar x:Name="csv_bar" HorizontalAlignment="Left" Height="15" Margin="908,32,0,0" VerticalAlignment="Top" Width="100" Value="100" Background="{x:Null}" BorderBrush="#FF4D4D4D">
+                <ProgressBar.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF4522E8" Offset="1"/>
+                        <GradientStop Color="#FFE5C6FF" Offset="0.01"/>
+                    </LinearGradientBrush>
+                </ProgressBar.Foreground>
+            </ProgressBar>
+            <Image Height="35" Margin="101,70,882,0" VerticalAlignment="Top" Source="Resources/2c2dc7c5955ae1f136173c33e366c861.png" Stretch="UniformToFill"/>
+            <Label x:Name="_money" Content="1,000,000 RUB" HorizontalAlignment="Left" Margin="141,78,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="100" VerticalContentAlignment="Center"/>
+            <Image Height="35" Margin="293,70,690,0" VerticalAlignment="Top" Source="Resources/enerji-ikon.png" Stretch="UniformToFill"/>
+            <Label x:Name="_power" Content="10,000 (демон)" HorizontalAlignment="Left" Margin="333,78,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="120" VerticalContentAlignment="Center"/>
+            <Image Height="35" Margin="485,70,498,0" VerticalAlignment="Top" Source="Resources/vector_363_08-512.png" Stretch="UniformToFill"/>
+            <Label x:Name="_iq" Content="200 (сверхчеловек)" HorizontalAlignment="Left" Margin="525,78,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="141" VerticalContentAlignment="Center"/>
+            <Image Height="35" Margin="677,70,306,0" VerticalAlignment="Top" Source="Resources/gaming.png" Stretch="UniformToFill"/>
+            <Label x:Name="_auth" Content="2000 (глава района)" HorizontalAlignment="Left" Margin="717,78,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="141" VerticalContentAlignment="Center"/>
+            <Label x:Name="_hp_p" Content="100%" HorizontalAlignment="Left" Margin="589,26,0,0" VerticalAlignment="Top" Height="26" Width="100" VerticalContentAlignment="Center" FontSize="10" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_alc_p" Content="100%" HorizontalAlignment="Left" Margin="749,26,0,0" VerticalAlignment="Top" Height="26" Width="100" VerticalContentAlignment="Center" FontSize="10" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_csv_p" Content="100%" HorizontalAlignment="Left" Margin="908,26,0,0" VerticalAlignment="Top" Height="26" Width="100" VerticalContentAlignment="Center" FontSize="10" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+            <Label Content="00:00, 31 марта 2018 г." HorizontalAlignment="Left" Margin="97,1,0,0" VerticalAlignment="Top" FontSize="14" Height="34" Width="879" VerticalContentAlignment="Center"/>
+            <Label x:Name="_money_Copy3" Content="Деньги" HorizontalAlignment="Left" Margin="141,60,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="100" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_money_Copy4" Content="Сила" HorizontalAlignment="Left" Margin="333,60,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="120" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_money_Copy5" Content="IQ" HorizontalAlignment="Left" Margin="525,60,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="141" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_money_Copy6" Content="Авторитет" HorizontalAlignment="Left" Margin="717,60,0,0" VerticalAlignment="Top" FontSize="14" Height="35" Width="141" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_money_Copy7" Content="Здоровье" HorizontalAlignment="Left" Margin="585,8,0,0" VerticalAlignment="Top" Height="29" Width="100" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_money_Copy8" Content="Опьянение" HorizontalAlignment="Left" Margin="745,8,0,0" VerticalAlignment="Top" Height="29" Width="100" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="_money_Copy9" Content="ЧСВ" HorizontalAlignment="Left" Margin="904,8,0,0" VerticalAlignment="Top" Height="29" Width="100" VerticalContentAlignment="Center" FontWeight="Bold"/>
+        </Grid>
+        <Separator HorizontalAlignment="Left" Height="20" Margin="0,110,0,0" VerticalAlignment="Top" Width="1018"/>
+        <ListBox x:Name ="ListBox1" HorizontalAlignment="Left" Height="269" Margin="0,470,0,0" VerticalAlignment="Top" Width="1018" FontSize="14" BorderBrush="#FF595959" Foreground="Black" IsEnabled="False" SelectionChanged="ListBox_SelectionChanged">
+            <ListBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDEFAFF" Offset="0"/>
+                    <GradientStop Color="#FFD0F7FF" Offset="1"/>
+                    <GradientStop Color="White" Offset="0.51"/>
+                </LinearGradientBrush>
+            </ListBox.Background>
+            <ListBoxItem x:Name ="Item" Content="[00:00]" Foreground="Red"/>
+        </ListBox>
+        <Button x:Name="_give_money" Content="Поднять бабла" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" Width="1018" Height="84" FontSize="24" Click="_give_money_Click">
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFC6F3FD" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="_knock" Content="Авторитет на районе" HorizontalAlignment="Left" Margin="0,203,0,0" VerticalAlignment="Top" Width="1018" Height="89" FontSize="24">
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFC6F3FD" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="_penzgtu" Content="Отправиться в ПензГТУ" HorizontalAlignment="Left" Margin="0,292,0,0" VerticalAlignment="Top" Width="1018" Height="89" FontSize="24" Click="_penzgtu_Click">
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFC6F3FD" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="_blame" Content="Предъявить кому-нибудь" HorizontalAlignment="Left" Margin="0,381,0,0" VerticalAlignment="Top" Width="1018" Height="89" FontSize="24">
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFC6F3FD" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</Window>
