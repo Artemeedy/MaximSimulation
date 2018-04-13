@@ -16,12 +16,13 @@ namespace MaximExample
 {
     class MessageButtonPenzGTU
     { 
-        public void MessageNegative()
+        public MessageButtonPenzGTU(string text,ListBox listBox)
         {
             ListBoxItem item = new ListBoxItem();
-            item.Content = "TODO";
+            item.Content = text;
             item.Foreground = Brushes.Red;
-            ListBox1.Items.Add(item);
+            listBox.Items.Add(item);
+            
         }
     }
 }

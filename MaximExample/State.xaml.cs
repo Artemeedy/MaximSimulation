@@ -38,6 +38,8 @@ namespace MaximExample {
 
         private void _penzgtu_Click(object sender, RoutedEventArgs e)
         {
+
+            MessageButtonPenzGTU Message = new MessageButtonPenzGTU("TODO",ListBox1);
         }
 
         private void _give_money_Click(object sender, RoutedEventArgs e)
