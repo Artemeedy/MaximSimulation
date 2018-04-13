@@ -60,6 +60,7 @@
       <DependentUpon>disclaimer.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageButtonPenzGTU.cs" />
+    <Compile Include="Shared.cs" />
     <Compile Include="State.xaml.cs">
       <DependentUpon>State.xaml</DependentUpon>
     </Compile>

@@ -14,15 +14,23 @@ using System.Windows.Shapes;
 
 namespace MaximExample
 {
-    class MessageButtonPenzGTU
-    { 
-        public MessageButtonPenzGTU(string text,ListBox listBox)
+    class Maxim
+    {
+        State window = null;
+
+        public Maxim(State window)
         {
-            ListBoxItem item = new ListBoxItem();
-            item.Content = text;
-            item.Foreground = Brushes.Red;
-            listBox.Items.Add(item);
-            
+            //...(init)
+            this.window = window;
+        }
+
+        //Предъява
+        public void Blame()
+        {
+            if (window == null)
+                return;
+            var phrase = Shared.GeneratePhrase();
+            window.SendMessage(text: phrase, color: Colors.DarkRed);
         }
     }
 }
